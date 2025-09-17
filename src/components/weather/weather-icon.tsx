@@ -23,6 +23,10 @@ export function WeatherIcon({ icon, size = 'md', className }: WeatherIconProps) 
       alt={`Weather icon: ${icon}`}
       className={cn(sizeMap[size], 'object-contain', className)}
       loading="lazy"
+      onError={(e) => {
+        // Fallback to sunny icon if image fails to load
+        (e.target as HTMLImageElement).src = '/assets/images/icon-sunny.webp';
+      }}
     />
   );
 }

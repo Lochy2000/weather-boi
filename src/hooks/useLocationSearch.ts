@@ -1,15 +1,17 @@
 import { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useDebounce } from './useDebounce';
 import { geocodingService } from '../lib/api/services/geocoding';
 import { Location } from '../types';
 
 export function useLocationSearch() {
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedQuery = useDebounce(searchQuery, 300);
   
   const { data: locations = [], isLoading, error } = useQuery<Location[]>({
-    queryKey: ['locations', searchQuery],
-    queryFn: () => geocodingService.search(searchQuery),
-    enabled: searchQuery.length >= 2,
+    queryKey: ['locations', debouncedQuery],
+    queryFn: () => geocodingService.search(debouncedQuery),
+    enabled: debouncedQuery.length >= 2,
     staleTime: 60 * 1000, // 1 minute
   });
 

@@ -1,30 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Bricolage+Grotesque:wght@700&display=swap');
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 18px;
-    line-height: 1.5;
-    font-weight: 400;
+@theme {
+  --color-neutral-0: hsl(0 0% 100%);
+  --color-neutral-200: hsl(250 6% 84%);
+  --color-neutral-300: hsl(240 6% 70%);
+  --color-neutral-600: hsl(243 23% 30%);
+  --color-neutral-700: hsl(243 23% 24%);
+  --color-neutral-800: hsl(243 27% 20%);
+  --color-neutral-900: hsl(243 96% 9%);
+  
+  --color-orange-500: hsl(28 100% 52%);
+  
+  --color-blue-500: hsl(233 67% 56%);
+  --color-blue-700: hsl(248 70% 36%);
+  
+  --font-family-dm-sans: 'DM Sans', sans-serif;
+  --font-family-bricolage: 'Bricolage Grotesque', sans-serif;
+}
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+:root {
+  font-family: var(--font-family-dm-sans);
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 400;
 
-  body {
-    margin: 0;
-    min-width: 320px;
-    min-height: 100vh;
-    @apply bg-neutral-900 text-neutral-0;
-  }
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  * {
-    box-sizing: border-box;
-  }
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-neutral-900);
+  color: var(--color-neutral-0);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.font-dm-sans {
+  font-family: var(--font-family-dm-sans);
+}
+
+.font-bricolage {
+  font-family: var(--font-family-bricolage);
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
 }

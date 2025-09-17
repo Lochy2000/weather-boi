@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { Layout } from './components/layout/Layout';
+import { SearchSection } from './components/weather/SearchSection';
+import { WeatherDashboard } from './components/weather/WeatherDashboard';
+import { LoadingState } from './components/states/LoadingState';
+import { ErrorState } from './components/states/ErrorState';
+import { EmptyState } from './components/states/EmptyState';
+import { useAppStore } from './stores/app.store';
+import { useWeatherData } from './hooks/useWeatherData';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { currentLocation, units } = useAppStore();
+  const { 
+    data: weather, 
+    isLoading, 
+    error, 
+    refetch 
+  } = useWeatherData(currentLocation, units);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Layout>
+      <SearchSection />
+      
+      {isLoading && <LoadingState />}
+      
+      {error && !isLoading && (
+        <ErrorState 
+          message={error.message}
+          onRetry={() => refetch()}
+        />
+      )}
+      
+      {!currentLocation && !isLoading && !error && (
+        <EmptyState />
+      )}
+      
+      {currentLocation && weather && !isLoading && !error && (
+        <WeatherDashboard 
+          weather={weather} 
+          location={currentLocation}
+        />
+      )}
+    </Layout>
+  );
 }
 
 export default App

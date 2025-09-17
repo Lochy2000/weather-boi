@@ -84,11 +84,16 @@ export enum ApiErrorType {
 }
 
 export class ApiError extends Error {
+  type: ApiErrorType;
+  statusCode?: number;
+  
   constructor(
-    public type: ApiErrorType,
-    public message: string,
-    public statusCode?: number
+    type: ApiErrorType,
+    message: string,
+    statusCode?: number
   ) {
     super(message);
+    this.type = type;
+    this.statusCode = statusCode;
   }
 }
