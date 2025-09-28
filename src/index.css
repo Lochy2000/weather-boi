@@ -58,3 +58,13 @@ body {
 .animation-delay-400 {
   animation-delay: 400ms;
 }
+
+/* Hide default scrollbar but keep scroll functionality */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

@@ -12,35 +12,51 @@ interface WeatherDashboardProps {
 }
 
 export function WeatherDashboard({ weather, location }: WeatherDashboardProps) {
-  const { units, selectedDay, setSelectedDay } = useAppStore();
+  const { units, selectedDay, setSelectedDay, isDayTransitioning, setDayTransitioning } = useAppStore();
+
+  const handleDaySelect = (day: number) => {
+    if (day === selectedDay) return; // Don't transition if same day clicked
+
+    // Start loading animation
+    setDayTransitioning(true);
+    setSelectedDay(day);
+
+    // End loading animation after 400ms
+    setTimeout(() => {
+      setDayTransitioning(false);
+    }, 400);
+  };
 
   if (!weather.current || !weather.daily || !weather.hourly) {
     return null;
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-3">
-      <div className="lg:col-span-2 space-y-8">
+    <div className="grid gap-6 md:gap-8 lg:grid-cols-3">
+      <div className="lg:col-span-2 space-y-6 md:space-y-8">
         <CurrentWeatherCard
-          weather={weather.current}
+          currentWeather={weather.current}
+          dailyForecast={weather.daily}
+          selectedDay={selectedDay}
           location={location}
-          unit={units.temperature}
+          isLoading={isDayTransitioning}
         />
         <WeatherMetrics weather={weather.current} units={units} />
-        <DailyForecast 
-          forecast={weather.daily} 
+        <DailyForecast
+          forecast={weather.daily}
           units={units}
           selectedDay={selectedDay}
-          onDaySelect={setSelectedDay}
+          onDaySelect={handleDaySelect}
         />
       </div>
-      
+
       <div className="lg:col-span-1">
         <HourlyForecast
           hourlyData={weather.hourly}
           dailyData={weather.daily}
           selectedDay={selectedDay}
           units={units}
+          isLoading={isDayTransitioning}
         />
       </div>
     </div>

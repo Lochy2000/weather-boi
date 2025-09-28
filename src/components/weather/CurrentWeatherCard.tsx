@@ -1,57 +1,105 @@
 import React from 'react';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { WeatherIcon } from './weather-icon';
-import { CurrentWeather, Location } from '../../types';
-import { formatTemperature, getWeatherCondition } from '../../lib/utils/weather';
+import { CurrentWeather, DailyForecast, Location } from '../../types';
+import { getWeatherCondition } from '../../lib/utils/weather';
 import { cn } from '../../lib/utils/cn';
 
 interface CurrentWeatherCardProps {
-  weather: CurrentWeather;
+  currentWeather?: CurrentWeather;
+  dailyForecast?: DailyForecast;
+  selectedDay: number;
   location: Location;
-  unit: 'celsius' | 'fahrenheit';
   className?: string;
+  isLoading?: boolean;
 }
 
-export function CurrentWeatherCard({ 
-  weather, 
-  location, 
-  unit, 
-  className 
+export function CurrentWeatherCard({
+  currentWeather,
+  dailyForecast,
+  selectedDay,
+  location,
+  className,
+  isLoading = false
 }: CurrentWeatherCardProps) {
-  const weatherCondition = getWeatherCondition(weather.weather_code);
-  const temperature = Math.round(weather.temperature_2m);
+  // Use daily forecast data if a day other than today is selected
+  const isToday = selectedDay === 0;
+
+  let temperature: number;
+  let weatherCode: number;
+  let displayDate: Date;
+
+  if (isToday && currentWeather) {
+    temperature = Math.round(currentWeather.temperature_2m);
+    weatherCode = currentWeather.weather_code;
+    displayDate = new Date(currentWeather.time);
+  } else if (dailyForecast) {
+    // For selected day, show the max temperature
+    temperature = Math.round(dailyForecast.temperature_2m_max[selectedDay]);
+    weatherCode = dailyForecast.weather_code[selectedDay];
+    displayDate = parseISO(dailyForecast.time[selectedDay]);
+  } else {
+    return null;
+  }
+
+  const weatherCondition = getWeatherCondition(weatherCode);
 
   return (
-    <div className={cn(
-      'relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 p-8 text-neutral-0',
-      className
-    )}>
-      {/* Decorative stars */}
-      <div className="absolute left-8 top-8 h-2 w-2 rotate-45 bg-neutral-0 opacity-40" />
-      <div className="absolute right-12 top-12 h-1.5 w-1.5 rotate-45 bg-neutral-0 opacity-30" />
-      <div className="absolute bottom-8 left-16 h-1 w-1 rotate-45 bg-neutral-0 opacity-20" />
-      <div className="absolute bottom-16 right-8 h-2.5 w-2.5 rotate-45 bg-orange-500" />
-      
-      <div className="relative">
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold">{location.name}, {location.country}</h2>
-          <p className="text-neutral-0/80">
-            {format(new Date(weather.time), 'EEEE, MMM d, yyyy')}
+    <div
+      className={cn(
+        'relative overflow-hidden rounded-2xl p-6 sm:p-8 text-neutral-0',
+        'bg-cover bg-center bg-no-repeat',
+        className
+      )}
+      style={{
+        backgroundImage: `url('/assets/images/bg-today-small.svg')`,
+      }}
+    >
+      {/* Desktop background for larger screens */}
+      <div
+        className="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat rounded-2xl"
+        style={{
+          backgroundImage: `url('/assets/images/bg-today-large.svg')`,
+        }}
+      />
+
+      <div className="relative h-full flex flex-col">
+        <div className="mb-4">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-1">{location.name}, {location.country}</h2>
+          <p className="text-neutral-0/70 text-base">
+            {format(displayDate, 'EEEE, MMM d, yyyy')}
           </p>
         </div>
-        
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <WeatherIcon 
-              icon={weatherCondition.icon} 
-              size="xl"
-              className="drop-shadow-lg"
-            />
-            <div className="text-7xl font-bold font-bricolage">
-              {temperature}°
+
+        <div className="flex-1 flex items-center justify-center">
+          {isLoading ? (
+            <div className="flex items-center gap-4 sm:gap-8 animate-pulse">
+              <div className="w-20 h-20 sm:w-28 sm:h-28 bg-neutral-0/20 rounded-full" />
+              <div className="h-16 sm:h-24 w-32 sm:w-48 bg-neutral-0/20 rounded-lg" />
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center gap-4 sm:gap-8">
+              <WeatherIcon
+                icon={weatherCondition.icon}
+                size="xl"
+                className="drop-shadow-lg w-20 h-20 sm:w-28 sm:h-28"
+              />
+              <div className="text-6xl sm:text-8xl font-bold font-bricolage tracking-tighter">
+                {temperature}°
+              </div>
+            </div>
+          )}
         </div>
+
+        {/* Show min/max temp for selected day if not today */}
+        {!isToday && dailyForecast && (
+          <div className="mt-4 text-center text-neutral-0/70">
+            <span className="text-sm">
+              L: {Math.round(dailyForecast.temperature_2m_min[selectedDay])}°
+              {' '}H: {Math.round(dailyForecast.temperature_2m_max[selectedDay])}°
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

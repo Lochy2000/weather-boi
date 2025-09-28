@@ -30,7 +30,7 @@ function DayCard({ date, weatherCode, tempMax, tempMin, isSelected, onClick }: D
   return (
     <Card
       className={cn(
-        'cursor-pointer border-neutral-700 bg-neutral-800 p-4 text-center transition-all hover:border-neutral-600',
+        'cursor-pointer border-neutral-700 bg-neutral-800 p-3 sm:p-4 text-center transition-all hover:border-neutral-600',
         isSelected && 'border-blue-500 bg-neutral-700'
       )}
       onClick={onClick}
@@ -48,8 +48,8 @@ function DayCard({ date, weatherCode, tempMax, tempMin, isSelected, onClick }: D
 export function DailyForecast({ forecast, units, onDaySelect, selectedDay = 0 }: DailyForecastProps) {
   return (
     <div className="mb-8">
-      <h3 className="mb-4 text-lg font-semibold text-neutral-0">Daily forecast</h3>
-      <div className="grid grid-cols-3 gap-3 md:grid-cols-7 md:gap-4">
+      <h3 className="mb-4 text-base sm:text-lg font-semibold text-neutral-0">Daily forecast</h3>
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-7 md:gap-4">
         {forecast.time.slice(0, 7).map((date, index) => (
           <DayCard
             key={date}

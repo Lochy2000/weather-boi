@@ -10,10 +10,11 @@ export function SearchSection() {
   const [inputValue, setInputValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [isFocused, setIsFocused] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  
+
   const { locations, isLoading, search, clearSearch } = useLocationSearch();
-  const { setCurrentLocation, addRecentLocation } = useAppStore();
+  const { setCurrentLocation, addRecentLocation, recentLocations } = useAppStore();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -85,11 +86,13 @@ export function SearchSection() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setTimeout(() => setIsFocused(false), 200)}
               className="h-12 bg-neutral-800 border-neutral-700 text-neutral-0 placeholder:text-neutral-300"
               prefix={
-                <img 
-                  src="/assets/images/icon-search.svg" 
-                  alt="Search" 
+                <img
+                  src="/assets/images/icon-search.svg"
+                  alt="Search"
                   className="h-5 w-5"
                 />
               }
@@ -108,8 +111,30 @@ export function SearchSection() {
               </div>
             )}
             
+            {isFocused && !inputValue && recentLocations.length > 0 && (
+              <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-lg bg-neutral-800 shadow-lg">
+                <div className="px-4 py-2 text-xs font-medium text-neutral-300 border-b border-neutral-700">
+                  Recent searches
+                </div>
+                {recentLocations.map((location) => (
+                  <button
+                    key={location.id}
+                    className={cn(
+                      'w-full px-4 py-3 text-left text-neutral-0 transition-colors hover:bg-neutral-700'
+                    )}
+                    onClick={() => handleSelectLocation(location)}
+                  >
+                    <div className="font-medium">{location.name}</div>
+                    <div className="text-sm text-neutral-300">
+                      {[location.admin1, location.country].filter(Boolean).join(', ')}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+
             {showSuggestions && locations.length > 0 && !isLoading && (
-              <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-60 overflow-auto rounded-lg bg-neutral-800 shadow-lg">
+              <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-lg bg-neutral-800 shadow-lg">
                 {locations.map((location, index) => (
                   <button
                     key={location.id}

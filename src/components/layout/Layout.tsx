@@ -12,7 +12,7 @@ export function Layout({ children, className }: LayoutProps) {
     <div className="min-h-screen bg-neutral-900">
       <Header />
       <main className={cn(
-        'mx-auto max-w-7xl px-4 pb-8 pt-4 md:px-8 md:pb-12 md:pt-8',
+        'mx-auto max-w-7xl px-4 pb-6 pt-4 sm:px-6 md:px-8 md:pb-12 md:pt-8',
         className
       )}>
         {children}

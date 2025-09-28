@@ -15,9 +15,9 @@ interface MetricCardProps {
 
 function MetricCard({ label, value }: MetricCardProps) {
   return (
-    <Card className="border-neutral-700 bg-neutral-800 p-4 text-center">
+    <Card className="border-neutral-700 bg-neutral-800 p-3 sm:p-4 text-center">
       <p className="mb-2 text-sm text-neutral-300">{label}</p>
-      <p className="text-2xl font-semibold text-neutral-0">{value}</p>
+      <p className="text-xl sm:text-2xl font-semibold text-neutral-0">{value}</p>
     </Card>
   );
 }
@@ -30,7 +30,7 @@ export function WeatherMetrics({ weather, units }: WeatherMetricsProps) {
   const precipitation = formatPrecipitation(weather.precipitation, units.precipitation);
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
       <MetricCard 
         label="Feels Like" 
         value={`${feelsLike}°`}
