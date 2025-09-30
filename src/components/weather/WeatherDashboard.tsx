@@ -44,7 +44,6 @@ export function WeatherDashboard({ weather, location }: WeatherDashboardProps) {
         <WeatherMetrics weather={weather.current} units={units} />
         <DailyForecast
           forecast={weather.daily}
-          units={units}
           selectedDay={selectedDay}
           onDaySelect={handleDaySelect}
         />
@@ -55,7 +54,6 @@ export function WeatherDashboard({ weather, location }: WeatherDashboardProps) {
           hourlyData={weather.hourly}
           dailyData={weather.daily}
           selectedDay={selectedDay}
-          units={units}
           isLoading={isDayTransitioning}
         />
       </div>

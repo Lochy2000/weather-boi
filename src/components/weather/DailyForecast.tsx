@@ -2,13 +2,12 @@ import React from 'react';
 import { format, parseISO, isToday } from 'date-fns';
 import { Card } from '../ui/card';
 import { WeatherIcon } from './weather-icon';
-import { DailyForecast as DailyForecastType, Units } from '../../types';
+import { DailyForecast as DailyForecastType } from '../../types';
 import { getWeatherCondition } from '../../lib/utils/weather';
 import { cn } from '../../lib/utils/cn';
 
 interface DailyForecastProps {
   forecast: DailyForecastType;
-  units: Units;
   onDaySelect?: (index: number) => void;
   selectedDay?: number;
 }
@@ -45,7 +44,7 @@ function DayCard({ date, weatherCode, tempMax, tempMin, isSelected, onClick }: D
   );
 }
 
-export function DailyForecast({ forecast, units, onDaySelect, selectedDay = 0 }: DailyForecastProps) {
+export function DailyForecast({ forecast, onDaySelect, selectedDay = 0 }: DailyForecastProps) {
   return (
     <div className="mb-8">
       <h3 className="mb-4 text-base sm:text-lg font-semibold text-neutral-0">Daily forecast</h3>

@@ -3,7 +3,7 @@ import { format, parseISO, isToday } from 'date-fns';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Card } from '../ui/card';
 import { WeatherIcon } from './weather-icon';
-import { HourlyForecast as HourlyForecastType, DailyForecast, Units } from '../../types';
+import { HourlyForecast as HourlyForecastType, DailyForecast } from '../../types';
 import { getWeatherCondition, isNightTime } from '../../lib/utils/weather';
 import { cn } from '../../lib/utils/cn';
 import { useAppStore } from '../../stores/app.store';
@@ -12,11 +12,10 @@ interface HourlyForecastProps {
   hourlyData: HourlyForecastType;
   dailyData: DailyForecast;
   selectedDay: number;
-  units: Units;
   isLoading?: boolean;
 }
 
-export function HourlyForecast({ hourlyData, dailyData, selectedDay, units, isLoading = false }: HourlyForecastProps) {
+export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading = false }: HourlyForecastProps) {
   const { setSelectedDay } = useAppStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollIndicator, setScrollIndicator] = useState({ height: 0, top: 0, visible: false });
@@ -138,7 +137,7 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, units, isLo
           </>
         ) : (
           // Show actual data
-          dayHours.map((hour, index) => {
+          dayHours.map((hour) => {
           const time = format(parseISO(hour.time), 'h a');
           const weatherCondition = getWeatherCondition(hour.weatherCode);
           const temperature = Math.round(hour.temperature);
