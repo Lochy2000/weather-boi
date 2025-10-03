@@ -1,6 +1,7 @@
 import React from 'react';
 import { CurrentWeatherCard } from './CurrentWeatherCard';
 import { WeatherMetrics } from './WeatherMetrics';
+import { ExtendedMetrics } from './ExtendedMetrics';
 import { DailyForecast } from './DailyForecast';
 import { HourlyForecast } from './HourlyForecast';
 import { WeatherData, Location } from '../../types';
@@ -41,7 +42,18 @@ export function WeatherDashboard({ weather, location }: WeatherDashboardProps) {
           location={location}
           isLoading={isDayTransitioning}
         />
-        <WeatherMetrics weather={weather.current} units={units} />
+        <WeatherMetrics
+          weather={weather.current}
+          dailyForecast={weather.daily}
+          selectedDay={selectedDay}
+          units={units}
+        />
+        <ExtendedMetrics
+          weather={weather.current}
+          dailyForecast={weather.daily}
+          selectedDay={selectedDay}
+          units={units}
+        />
         <DailyForecast
           forecast={weather.daily}
           selectedDay={selectedDay}

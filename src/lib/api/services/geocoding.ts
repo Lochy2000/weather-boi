@@ -14,10 +14,10 @@ export const geocodingService = {
     }
 
     const response = await apiClient.get<GeocodingResponse>(`${API_CONFIG.GEOCODING_BASE_URL}/search`, {
-      params: { 
-        name: query, 
-        count, 
-        language: 'en' 
+      params: {
+        name: query,
+        count,
+        language: 'en'
       }
     });
 

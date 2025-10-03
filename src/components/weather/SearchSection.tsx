@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useLocationSearch } from '../../hooks/useLocationSearch';
+import { useGeolocation } from '../../hooks/useGeolocation';
 import { useAppStore } from '../../stores/app.store';
 import { Location } from '../../types';
 import { cn } from '../../lib/utils/cn';
@@ -11,9 +12,11 @@ export function SearchSection() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isFocused, setIsFocused] = useState(false);
+  const [geoLoading, setGeoLoading] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const { locations, isLoading, search, clearSearch } = useLocationSearch();
+  const { coords, loading: geolocationLoading, error: geoError, getCurrentLocation } = useGeolocation();
   const { setCurrentLocation, addRecentLocation, recentLocations } = useAppStore();
 
   useEffect(() => {
@@ -37,13 +40,13 @@ export function SearchSection() {
     }
   }, [inputValue, search, clearSearch]);
 
-  const handleSelectLocation = (location: Location) => {
+  const handleSelectLocation = useCallback((location: Location) => {
     setCurrentLocation(location);
     addRecentLocation(location);
     setInputValue('');
     setShowSuggestions(false);
     clearSearch();
-  };
+  }, [setCurrentLocation, addRecentLocation, clearSearch]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!showSuggestions || locations.length === 0) return;
@@ -51,7 +54,7 @@ export function SearchSection() {
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        setSelectedIndex(prev => 
+        setSelectedIndex(prev =>
           prev < locations.length - 1 ? prev + 1 : prev
         );
         break;
@@ -71,6 +74,35 @@ export function SearchSection() {
     }
   };
 
+  const handleUseMyLocation = async () => {
+    getCurrentLocation();
+  };
+
+  // Effect to handle when coords are available
+  useEffect(() => {
+    if (coords) {
+      setGeoLoading(true);
+
+      // Create a location object directly from coordinates
+      // No reverse geocoding needed - we just need the coords for weather data
+      const currentLocation: Location = {
+        id: Date.now(), // Unique ID based on timestamp
+        name: 'Current Location',
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        elevation: 0,
+        feature_code: 'CURRENT',
+        country_code: '',
+        country: '',
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        country_id: 0,
+      };
+
+      handleSelectLocation(currentLocation);
+      setGeoLoading(false);
+    }
+  }, [coords, handleSelectLocation]);
+
   return (
     <div className="mb-8 text-center">
       <h1 className="mb-8 text-4xl font-bold text-neutral-0 md:text-5xl">
@@ -78,7 +110,7 @@ export function SearchSection() {
       </h1>
       
       <div ref={searchRef} className="relative mx-auto max-w-2xl">
-        <div className="flex gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row">
           <div className="relative flex-1">
             <Input
               type="text"
@@ -154,8 +186,8 @@ export function SearchSection() {
             )}
           </div>
           
-          <Button 
-            variant="default" 
+          <Button
+            variant="default"
             size="lg"
             className="h-12 px-8"
             onClick={() => {
@@ -167,7 +199,55 @@ export function SearchSection() {
           >
             Search
           </Button>
+
+          <Button
+            variant="outline"
+            size="lg"
+            className="h-12 px-6 bg-neutral-800 border-neutral-700 text-neutral-0 hover:bg-neutral-700"
+            onClick={handleUseMyLocation}
+            disabled={geolocationLoading || geoLoading}
+          >
+            {geolocationLoading || geoLoading ? (
+              <>
+                <img
+                  src="/assets/images/icon-loading.svg"
+                  alt="Loading"
+                  className="h-4 w-4 animate-spin mr-2"
+                />
+                Detecting...
+              </>
+            ) : (
+              <>
+                <svg
+                  className="h-4 w-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Use My Location
+              </>
+            )}
+          </Button>
         </div>
+
+        {geoError && (
+          <div className="mt-2 text-sm text-red-400">
+            {geoError}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Card } from '../ui/card';
-import { CurrentWeather, Units } from '../../types';
+import { CurrentWeather, DailyForecast, Units } from '../../types';
 import { formatWindSpeed, formatPrecipitation, getWindDirection } from '../../lib/utils/weather';
 
 interface WeatherMetricsProps {
   weather: CurrentWeather;
+  dailyForecast?: DailyForecast;
+  selectedDay?: number;
   units: Units;
 }
 
@@ -22,29 +24,53 @@ function MetricCard({ label, value }: MetricCardProps) {
   );
 }
 
-export function WeatherMetrics({ weather, units }: WeatherMetricsProps) {
-  const feelsLike = Math.round(weather.apparent_temperature);
-  const humidity = weather.relative_humidity_2m;
-  const windSpeed = formatWindSpeed(weather.wind_speed_10m, units.windSpeed);
-  const windDirection = getWindDirection(weather.wind_direction_10m);
-  const precipitation = formatPrecipitation(weather.precipitation, units.precipitation);
+export function WeatherMetrics({ weather, dailyForecast, selectedDay = 0, units }: WeatherMetricsProps) {
+  // If selectedDay is 0 (today) or no daily forecast, use current weather
+  // Otherwise, use daily forecast data for the selected day
+  const useCurrentWeather = selectedDay === 0 || !dailyForecast;
+
+  const feelsLike = useCurrentWeather
+    ? Math.round(weather.apparent_temperature)
+    : dailyForecast?.apparent_temperature_max?.[selectedDay]
+      ? Math.round(dailyForecast.apparent_temperature_max[selectedDay])
+      : Math.round(weather.apparent_temperature);
+
+  const humidity = useCurrentWeather
+    ? weather.relative_humidity_2m
+    : dailyForecast?.relative_humidity_2m_mean?.[selectedDay] ?? weather.relative_humidity_2m;
+
+  const windSpeedValue = useCurrentWeather
+    ? weather.wind_speed_10m
+    : dailyForecast?.wind_speed_10m_max?.[selectedDay] ?? weather.wind_speed_10m;
+
+  const windDirectionValue = useCurrentWeather
+    ? weather.wind_direction_10m
+    : dailyForecast?.wind_direction_10m_dominant?.[selectedDay] ?? weather.wind_direction_10m;
+
+  const precipitationValue = useCurrentWeather
+    ? weather.precipitation
+    : dailyForecast?.precipitation_sum?.[selectedDay] ?? weather.precipitation;
+
+  const windSpeed = formatWindSpeed(windSpeedValue, units.windSpeed);
+  const windDirection = getWindDirection(windDirectionValue);
+  const precipitation = formatPrecipitation(precipitationValue, units.precipitation);
 
   return (
     <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
-      <MetricCard 
-        label="Feels Like" 
+      <MetricCard
+        label={useCurrentWeather ? "Feels Like" : "Max Feels Like"}
         value={`${feelsLike}°`}
       />
-      <MetricCard 
-        label="Humidity" 
-        value={`${humidity}%`}
+      <MetricCard
+        label={useCurrentWeather ? "Humidity" : "Avg Humidity"}
+        value={`${Math.round(humidity)}%`}
       />
-      <MetricCard 
-        label="Wind" 
+      <MetricCard
+        label={useCurrentWeather ? "Wind" : "Max Wind"}
         value={`${windSpeed} ${windDirection}`}
       />
-      <MetricCard 
-        label="Precipitation" 
+      <MetricCard
+        label={useCurrentWeather ? "Precipitation" : "Total Precip."}
         value={precipitation}
       />
     </div>
