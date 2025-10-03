@@ -6,10 +6,19 @@
 
 A modern, responsive weather application built with React, TypeScript, and Vite. This app provides real-time weather information using the Open-Meteo API, featuring current conditions, 7-day forecasts, and hourly temperature data with a beautiful, intuitive interface.
 
+## 🆕 What's New (Stage 2)
+
+- **One-Click Geolocation** - Instantly get weather for your current location
+- **Extended Weather Metrics** - UV index, visibility, air pressure, wind gusts, and cloud cover
+- **Smart Day Selection** - All metrics automatically update when you select different days
+- **Collapsible Design** - Extended metrics section toggles for a cleaner UI
+- **Enhanced API Integration** - Expanded daily forecast variables for richer data
+
 ## Features
 
-### Core Functionality
+### Core Functionality (Stage 1) ✅
 - **Location Search**: Smart search with autocomplete suggestions for cities worldwide
+- **Geolocation**: One-click "Use My Location" for instant local weather
 - **Current Weather**: Real-time temperature, weather conditions, and location details
 - **Weather Metrics**: Comprehensive data including:
   - "Feels like" temperature
@@ -18,12 +27,23 @@ A modern, responsive weather application built with React, TypeScript, and Vite.
   - Precipitation amounts
 - **7-Day Forecast**: Daily high/low temperatures with weather icons
 - **Hourly Forecast**: 24-hour temperature timeline with day selector
+- **Dynamic Metrics**: All metrics update when selecting different days
 - **Unit Conversion**: Toggle between Imperial and Metric units
   - Temperature: Celsius/Fahrenheit
   - Wind Speed: km/h, mph
   - Precipitation: mm, inches
 - **Recent Searches**: Quick access to previously searched locations
 - **Responsive Design**: Optimized for mobile, tablet, and desktop devices
+
+### Enhanced Features (Stage 2) ✅
+- **Extended Metrics** (Collapsible):
+  - UV Index with color-coded levels and health recommendations
+  - Visibility in km/miles with quality descriptions
+  - Air pressure in hPa/inHg
+  - Wind gusts maximum speed
+  - Cloud cover percentage with descriptions
+- **Day-Aware Data**: Metrics automatically show forecast data for selected future days
+- **Browser Geolocation**: Automatic location detection with permission handling
 
 ## Tech Stack
 
@@ -182,20 +202,26 @@ The main dashboard displays all weather information in a responsive grid layout:
 
 ## Known Issues
 
-- Some ESLint warnings in component files (being addressed)
-- TypeScript strict mode could be enhanced
 - No test coverage yet implemented
+- Accessibility could be enhanced (ARIA labels, screen reader support)
+- TypeScript strict mode could be enhanced
 
-## Future Enhancements (Stage 2)
+## Completed Enhancements (Stage 2)
 
-- Geolocation detection for automatic current location
+- ✅ Geolocation detection for automatic current location
+- ✅ Extended weather metrics (UV index, visibility, air pressure, wind gusts, cloud cover)
+- ✅ Dynamic day-aware metrics (metrics update per selected day)
+- ✅ Collapsible extended metrics section
+
+## Planned Future Enhancements
+
+- Sunrise/sunset times with visual indicators
 - Favorites/saved locations system
 - Compare weather between multiple locations
-- UV index, visibility, and air pressure data
-- Sunrise/sunset times with visual indicators
 - Dark/light mode themes
 - Progressive Web App (PWA) capabilities
 - Weather animations based on conditions
+- Voice search functionality
 
 ## Contributing
 

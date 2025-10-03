@@ -67,6 +67,10 @@ export interface DailyForecast {
   pressure_msl_mean?: number[];
   cloud_cover_mean?: number[];
   relative_humidity_2m_mean?: number[];
+  sunrise?: string[];
+  sunset?: string[];
+  daylight_duration?: number[];
+  sunshine_duration?: number[];
 }
 
 export interface WeatherData {

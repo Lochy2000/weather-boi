@@ -67,5 +67,9 @@ export const DAILY_VARIABLES = [
   'uv_index_clear_sky_max',
   'pressure_msl_mean',
   'cloud_cover_mean',
-  'relative_humidity_2m_mean'
+  'relative_humidity_2m_mean',
+  'sunrise',
+  'sunset',
+  'daylight_duration',
+  'sunshine_duration'
 ];
