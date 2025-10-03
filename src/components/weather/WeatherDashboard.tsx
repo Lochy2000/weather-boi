@@ -5,6 +5,7 @@ import { ExtendedMetrics } from './ExtendedMetrics';
 import { SunriseSunset } from './SunriseSunset';
 import { DailyForecast } from './DailyForecast';
 import { HourlyForecast } from './HourlyForecast';
+import { SaveLocationButton } from '../favorites/SaveLocationButton';
 import { WeatherData, Location } from '../../types';
 import { useAppStore } from '../../stores/app.store';
 

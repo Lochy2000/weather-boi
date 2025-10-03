@@ -64,11 +64,13 @@ export function CurrentWeatherCard({
       />
 
       <div className="relative h-full flex flex-col">
-        <div className="mb-4">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-1">{location.name}, {location.country}</h2>
-          <p className="text-neutral-0/70 text-base">
-            {format(displayDate, 'EEEE, MMM d, yyyy')}
-          </p>
+        <div className="mb-4 flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-semibold mb-1">{location.name}, {location.country}</h2>
+            <p className="text-neutral-0/70 text-base">
+              {format(displayDate, 'EEEE, MMM d, yyyy')}
+            </p>
+          </div>
         </div>
 
         <div className="flex-1 flex items-center justify-center">

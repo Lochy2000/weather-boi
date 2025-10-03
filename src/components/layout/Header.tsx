@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '../../lib/utils/cn';
 import { UnitDropdown } from './UnitDropdown';
+import { FavoritesDropdown } from '../favorites/FavoritesDropdown';
 
 interface HeaderProps {
   className?: string;
@@ -16,7 +17,10 @@ export function Header({ className }: HeaderProps) {
           className="h-10 w-auto md:h-12"
         />
 
-        <UnitDropdown />
+        <div className="flex items-center gap-3">
+          <FavoritesDropdown />
+          <UnitDropdown />
+        </div>
       </div>
     </header>
   );

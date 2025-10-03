@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { SaveLocationButton } from '../favorites/SaveLocationButton';
 import { useLocationSearch } from '../../hooks/useLocationSearch';
 import { useGeolocation } from '../../hooks/useGeolocation';
 import { useAppStore } from '../../stores/app.store';
@@ -17,7 +18,7 @@ export function SearchSection() {
 
   const { locations, isLoading, search, clearSearch } = useLocationSearch();
   const { coords, loading: geolocationLoading, error: geoError, getCurrentLocation } = useGeolocation();
-  const { setCurrentLocation, addRecentLocation, recentLocations } = useAppStore();
+  const { setCurrentLocation, addRecentLocation, recentLocations, currentLocation } = useAppStore();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -242,6 +243,13 @@ export function SearchSection() {
             )}
           </Button>
         </div>
+
+        {/* Save Location Button */}
+        {currentLocation && (
+          <div className="mt-4 flex justify-center">
+            <SaveLocationButton location={currentLocation} />
+          </div>
+        )}
 
         {geoError && (
           <div className="mt-2 text-sm text-red-400">
