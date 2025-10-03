@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Card } from '../ui/card';
 import { DailyForecast } from '../../types';
-import { Sunrise, Sunset, Sun } from 'lucide-react';
+import { Sunrise, Sunset, Sun, Moon } from 'lucide-react';
 
 interface SunriseSunsetProps {
   dailyForecast: DailyForecast;
@@ -70,19 +70,6 @@ export function SunriseSunset({ dailyForecast, selectedDay }: SunriseSunsetProps
     return null;
   }
 
-  // Calculate sun position on the arc
-  const arcPathRadius = 80;
-  const arcStartX = 20;
-  const arcEndX = 180;
-  const arcY = 100;
-
-  // Create SVG arc path
-  const arcPath = `M ${arcStartX} ${arcY} Q 100 20 ${arcEndX} ${arcY}`;
-
-  // Calculate sun position along the arc
-  const sunX = arcStartX + (arcEndX - arcStartX) * sunData.sunProgress;
-  const sunY = arcY - Math.sin(sunData.sunProgress * Math.PI) * (arcY - 20);
-
   return (
     <div className="mb-8">
       <button
@@ -107,117 +94,89 @@ export function SunriseSunset({ dailyForecast, selectedDay }: SunriseSunsetProps
       </button>
 
       {isExpanded && (
-    <Card className="p-6 bg-gradient-to-br from-orange-50 to-blue-50 dark:from-orange-950/20 dark:to-blue-950/20 border-orange-200/50 dark:border-orange-800/50">
+    <Card className="p-6 bg-gradient-to-br from-orange-50 to-blue-50 dark:from-orange-950/20 dark:to-blue-950/20 border-neutral-700 dark:border-neutral-700">
       <div className="space-y-6">
 
-        {/* Sun Arc Visualization */}
-        <div className="relative h-32">
-          <svg
-            viewBox="0 0 200 120"
-            className="w-full h-full"
-            aria-hidden="true"
-          >
-            {/* Background arc */}
-            <path
-              d={arcPath}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="text-gray-300 dark:text-gray-600"
-              strokeLinecap="round"
-            />
+        {/* Horizontal Day/Night Timeline */}
+        <div className="relative py-8">
+          {/* Timeline gradient bar */}
+          <div className="relative h-3 rounded-full overflow-hidden">
+            {/* Day gradient (sunrise to sunset) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-900 via-amber-400 to-indigo-900"></div>
+          </div>
 
-            {/* Progress arc (daylight passed) */}
-            {sunData.isDaytime && (
-              <path
-                d={arcPath}
-                fill="none"
-                stroke="url(#sunGradient)"
-                strokeWidth="3"
-                className="transition-all duration-1000"
-                strokeDasharray={`${sunData.sunProgress * 200} 200`}
-                strokeLinecap="round"
-              />
-            )}
-
-            {/* Gradient definition */}
-            <defs>
-              <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#f59e0b" />
-                <stop offset="50%" stopColor="#fbbf24" />
-                <stop offset="100%" stopColor="#f97316" />
-              </linearGradient>
-            </defs>
-
+          {/* Timeline markers container */}
+          <div className="absolute inset-0 flex items-center">
             {/* Sunrise marker */}
-            <g transform={`translate(${arcStartX}, ${arcY})`}>
-              <circle
-                r="4"
-                fill="currentColor"
-                className="text-orange-400 dark:text-orange-500"
-              />
-            </g>
+            <div className="absolute flex flex-col items-center" style={{ left: '0%' }}>
+              <div className="flex flex-col items-center -translate-y-2">
+                <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/50 border-2 border-orange-400">
+                  <Sunrise className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                </div>
+                <div className="mt-6 text-xs font-medium text-neutral-700 dark:text-neutral-300 whitespace-nowrap">
+                  {sunData.sunriseTime}
+                </div>
+              </div>
+            </div>
 
             {/* Sunset marker */}
-            <g transform={`translate(${arcEndX}, ${arcY})`}>
-              <circle
-                r="4"
-                fill="currentColor"
-                className="text-orange-600 dark:text-orange-700"
-              />
-            </g>
+            <div className="absolute flex flex-col items-center" style={{ left: '100%' }}>
+              <div className="flex flex-col items-center -translate-x-full -translate-y-2">
+                <div className="p-2 rounded-full bg-orange-200 dark:bg-orange-800/50 border-2 border-orange-600">
+                  <Sunset className="w-4 h-4 text-orange-700 dark:text-orange-500" />
+                </div>
+                <div className="mt-6 text-xs font-medium text-neutral-700 dark:text-neutral-300 whitespace-nowrap">
+                  {sunData.sunsetTime}
+                </div>
+              </div>
+            </div>
 
-            {/* Current sun position (only show during daytime) */}
+            {/* Current position indicator - Sun or Moon */}
             {sunData.isDaytime && !sunData.hasPassedSunset && (
-              <g transform={`translate(${sunX}, ${sunY})`}>
-                <circle
-                  r="8"
-                  fill="#fbbf24"
-                  className="animate-pulse"
-                />
-                <circle
-                  r="6"
-                  fill="#fcd34d"
-                />
-              </g>
+              <div
+                className="absolute flex flex-col items-center transition-all duration-1000"
+                style={{ left: `${sunData.sunProgress * 100}%` }}
+              >
+                <div className="flex flex-col items-center -translate-x-1/2 -translate-y-2">
+                  <div className="p-2.5 rounded-full bg-yellow-100 dark:bg-yellow-900/50 border-2 border-yellow-400 shadow-lg animate-pulse">
+                    <Sun className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                  </div>
+                  <div className="mt-6 text-xs font-semibold text-yellow-700 dark:text-yellow-400">
+                    Now
+                  </div>
+                </div>
+              </div>
             )}
-          </svg>
+
+            {/* Moon indicator (nighttime) */}
+            {!sunData.isDaytime && (
+              <div className="absolute left-1/2 flex flex-col items-center -translate-x-1/2 -translate-y-2">
+                <div className="p-2.5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 border-2 border-indigo-400 shadow-lg">
+                  <Moon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <div className="mt-6 text-xs font-semibold text-indigo-700 dark:text-indigo-400">
+                  {sunData.hasPassedSunset ? 'Night' : 'Night'}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Times Display */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Sunrise */}
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/30">
-              <Sunrise className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Sunrise</p>
-              <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                {sunData.sunriseTime}
-              </p>
-            </div>
-          </div>
-
-          {/* Sunset */}
-          <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-orange-200 dark:bg-orange-800/30">
-              <Sunset className="w-5 h-5 text-orange-700 dark:text-orange-500" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Sunset</p>
-              <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                {sunData.sunsetTime}
-              </p>
-            </div>
-          </div>
+        {/* Daylight info */}
+        <div className="text-center">
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+              {sunData.daylightHours}h {sunData.daylightMinutes}m
+            </span>
+            {' '}of daylight
+          </p>
         </div>
 
         {/* Daylight Remaining (only show during daytime) */}
         {sunData.isDaytime && !sunData.hasPassedSunset && sunData.remainingHours >= 0 && (
-          <div className="pt-4 border-t border-orange-200/50 dark:border-orange-800/50">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="pt-4 border-t border-neutral-300/50 dark:border-neutral-600/50">
+            <div className="flex items-center justify-between text-center">
+              <span className="text-sm text-neutral-600 dark:text-neutral-400">
                 Daylight remaining
               </span>
               <span className="text-sm font-semibold text-orange-600 dark:text-orange-400">
@@ -225,28 +184,22 @@ export function SunriseSunset({ dailyForecast, selectedDay }: SunriseSunsetProps
                 {sunData.remainingMinutes}m
               </span>
             </div>
-            <div className="mt-2 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-orange-400 to-orange-600 transition-all duration-1000 rounded-full"
-                style={{ width: `${sunData.sunProgress * 100}%` }}
-              />
-            </div>
           </div>
         )}
 
         {/* After sunset message */}
         {sunData.hasPassedSunset && (
-          <div className="pt-4 border-t border-orange-200/50 dark:border-orange-800/50">
-            <p className="text-sm text-center text-gray-600 dark:text-gray-400">
-              Sun has set. Next sunrise at {sunData.sunriseTime}
+          <div className="pt-4 border-t border-neutral-300/50 dark:border-neutral-600/50">
+            <p className="text-sm text-center text-neutral-600 dark:text-neutral-400">
+              Sun has set • Next sunrise at {sunData.sunriseTime}
             </p>
           </div>
         )}
 
         {/* Before sunrise message */}
         {!sunData.isDaytime && !sunData.hasPassedSunset && (
-          <div className="pt-4 border-t border-orange-200/50 dark:border-orange-800/50">
-            <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+          <div className="pt-4 border-t border-neutral-300/50 dark:border-neutral-600/50">
+            <p className="text-sm text-center text-neutral-600 dark:text-neutral-400">
               Sun rises at {sunData.sunriseTime}
             </p>
           </div>
