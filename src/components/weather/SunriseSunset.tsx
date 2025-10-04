@@ -74,17 +74,17 @@ export function SunriseSunset({ dailyForecast, selectedDay }: SunriseSunsetProps
     <div className="mb-8">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between mb-4 px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 hover:bg-neutral-750 hover:border-neutral-600 transition-all"
+        className="w-full flex items-center justify-between mb-4 px-4 py-3 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-750 dark:hover:border-neutral-600 transition-all"
       >
         <div className="flex items-center gap-3">
           <Sun className="w-5 h-5 text-orange-500" />
-          <span className="text-base sm:text-lg font-semibold text-neutral-0">Sun & Daylight</span>
-          <span className="text-xs text-neutral-400">
+          <span className="text-base sm:text-lg font-semibold text-neutral-900 dark:text-neutral-0">Sun & Daylight</span>
+          <span className="text-xs text-neutral-600 dark:text-neutral-400">
             {sunData.sunriseTime} - {sunData.sunsetTime}
           </span>
         </div>
         <svg
-          className={`h-5 w-5 text-neutral-300 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          className={`h-5 w-5 text-neutral-600 dark:text-neutral-300 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -94,7 +94,7 @@ export function SunriseSunset({ dailyForecast, selectedDay }: SunriseSunsetProps
       </button>
 
       {isExpanded && (
-    <Card className="p-6 bg-gradient-to-br from-orange-50 to-blue-50 dark:from-orange-950/20 dark:to-blue-950/20 border-neutral-700 dark:border-neutral-700">
+    <Card className="p-6 bg-gradient-to-br from-orange-50 to-blue-50 dark:from-orange-950/20 dark:to-blue-950/20">
       <div className="space-y-6">
 
         {/* Horizontal Day/Night Timeline */}

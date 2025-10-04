@@ -29,16 +29,16 @@ function DayCard({ date, weatherCode, tempMax, tempMin, isSelected, onClick }: D
   return (
     <Card
       className={cn(
-        'cursor-pointer border-neutral-700 bg-neutral-800 p-3 sm:p-4 text-center transition-all hover:border-neutral-600',
-        isSelected && 'border-blue-500 bg-neutral-700'
+        'cursor-pointer p-3 sm:p-4 text-center transition-all hover:border-blue-400 dark:hover:border-neutral-600',
+        isSelected && 'border-blue-500 bg-blue-50 dark:bg-neutral-700'
       )}
       onClick={onClick}
     >
-      <p className="mb-3 text-sm font-medium text-neutral-0">{dayName}</p>
+      <p className="mb-3 text-sm font-medium text-neutral-900 dark:text-neutral-0">{dayName}</p>
       <WeatherIcon icon={weatherCondition.icon} size="md" className="mx-auto mb-3" />
       <div className="flex justify-center gap-2 text-sm">
-        <span className="font-semibold text-neutral-0">{Math.round(tempMax)}°</span>
-        <span className="text-neutral-300">{Math.round(tempMin)}°</span>
+        <span className="font-semibold text-neutral-900 dark:text-neutral-0">{Math.round(tempMax)}°</span>
+        <span className="text-neutral-600 dark:text-neutral-300">{Math.round(tempMin)}°</span>
       </div>
     </Card>
   );
@@ -47,7 +47,7 @@ function DayCard({ date, weatherCode, tempMax, tempMin, isSelected, onClick }: D
 export function DailyForecast({ forecast, onDaySelect, selectedDay = 0 }: DailyForecastProps) {
   return (
     <div className="mb-8">
-      <h3 className="mb-4 text-base sm:text-lg font-semibold text-neutral-0">Daily forecast</h3>
+      <h3 className="mb-4 text-base sm:text-lg font-semibold text-neutral-900 dark:text-neutral-0">Daily forecast</h3>
       <div className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-7 md:gap-4">
         {forecast.time.slice(0, 7).map((date, index) => (
           <DayCard

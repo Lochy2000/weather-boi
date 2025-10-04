@@ -70,12 +70,12 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
   }, [dayHours]);
 
   return (
-    <Card className="border-neutral-700 bg-neutral-800 p-4 sm:p-6 relative">
+    <Card className="p-4 sm:p-6 relative">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-base sm:text-lg font-semibold text-neutral-0">Hourly forecast</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-neutral-900 dark:text-neutral-0">Hourly forecast</h3>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
-            <button className="flex items-center gap-2 rounded-md px-3 py-1 text-sm text-neutral-300 transition-colors hover:bg-neutral-700 hover:text-neutral-0">
+            <button className="flex items-center gap-2 rounded-md px-3 py-1 text-sm text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:text-neutral-900 dark:hover:text-neutral-0">
               <span>{isToday(selectedDate) ? 'Today' : format(selectedDate, 'EEEE')}</span>
               <img
                 src="/assets/images/icon-dropdown.svg"
@@ -87,7 +87,7 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
 
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              className="z-50 min-w-[140px] rounded-lg bg-neutral-700 p-2 shadow-lg"
+              className="z-50 min-w-[140px] rounded-lg bg-white dark:bg-neutral-700 p-2 shadow-lg border border-neutral-200 dark:border-transparent"
               sideOffset={5}
               align="end"
             >
@@ -99,8 +99,8 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
                   <DropdownMenu.Item
                     key={date}
                     className={cn(
-                      "flex w-full items-center rounded-md px-3 py-2 text-sm text-neutral-0 transition-colors hover:bg-neutral-600 outline-none",
-                      index === selectedDay && "bg-neutral-600"
+                      "flex w-full items-center rounded-md px-3 py-2 text-sm text-neutral-900 dark:text-neutral-0 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-600 outline-none",
+                      index === selectedDay && "bg-neutral-100 dark:bg-neutral-600"
                     )}
                     onSelect={() => setSelectedDay(index)}
                   >
@@ -108,7 +108,7 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
                   </DropdownMenu.Item>
                 );
               })}
-              <DropdownMenu.Arrow className="fill-neutral-700" />
+              <DropdownMenu.Arrow className="fill-white dark:fill-neutral-700" />
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
@@ -125,13 +125,13 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
             {[...Array(8)].map((_, index) => (
               <div
                 key={index}
-                className="bg-neutral-700 rounded-lg p-3 flex items-center justify-between animate-pulse"
+                className="bg-neutral-200 dark:bg-neutral-700 rounded-lg p-3 flex items-center justify-between animate-pulse"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-neutral-600 rounded-full" />
-                  <div className="w-12 h-4 bg-neutral-600 rounded" />
+                  <div className="w-8 h-8 bg-neutral-300 dark:bg-neutral-600 rounded-full" />
+                  <div className="w-12 h-4 bg-neutral-300 dark:bg-neutral-600 rounded" />
                 </div>
-                <div className="w-8 h-5 bg-neutral-600 rounded" />
+                <div className="w-8 h-5 bg-neutral-300 dark:bg-neutral-600 rounded" />
               </div>
             ))}
           </>
@@ -146,7 +146,7 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
           return (
             <div
               key={hour.time}
-              className="bg-neutral-700 rounded-lg p-3 flex items-center justify-between"
+              className="bg-neutral-200 dark:bg-neutral-700 rounded-lg p-3 flex items-center justify-between"
             >
               <div className="flex items-center gap-2">
                 <WeatherIcon
@@ -155,12 +155,12 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
                 />
                 <span className={cn(
                   "text-sm min-w-[3rem]",
-                  isNight ? "text-neutral-300" : "text-neutral-0"
+                  isNight ? "text-neutral-500 dark:text-neutral-300" : "text-neutral-900 dark:text-neutral-0"
                 )}>
                   {time}
                 </span>
               </div>
-              <span className="text-base font-medium text-neutral-0">
+              <span className="text-base font-medium text-neutral-900 dark:text-neutral-0">
                 {temperature}°
               </span>
             </div>
@@ -172,7 +172,7 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
         {/* Custom scroll indicator */}
         {scrollIndicator.visible && (
           <div
-            className="absolute right-0 w-0.5 bg-neutral-500 rounded-full transition-opacity duration-200"
+            className="absolute right-0 w-0.5 bg-neutral-400 dark:bg-neutral-500 rounded-full transition-opacity duration-200"
             style={{
               height: `${scrollIndicator.height}px`,
               top: `${scrollIndicator.top}px`,

@@ -17,9 +17,9 @@ interface MetricCardProps {
 
 function MetricCard({ label, value }: MetricCardProps) {
   return (
-    <Card className="border-neutral-700 bg-neutral-800 p-3 sm:p-4 text-center">
-      <p className="mb-2 text-sm text-neutral-300">{label}</p>
-      <p className="text-xl sm:text-2xl font-semibold text-neutral-0">{value}</p>
+    <Card className="p-3 sm:p-4 text-center">
+      <p className="mb-2 text-sm text-neutral-600 dark:text-neutral-300">{label}</p>
+      <p className="text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-0">{value}</p>
     </Card>
   );
 }

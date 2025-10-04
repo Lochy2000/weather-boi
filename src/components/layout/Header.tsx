@@ -2,6 +2,7 @@ import React from 'react';
 import { cn } from '../../lib/utils/cn';
 import { UnitDropdown } from './UnitDropdown';
 import { FavoritesDropdown } from '../favorites/FavoritesDropdown';
+import { ThemeToggle } from '../theme/ThemeToggle';
 
 interface HeaderProps {
   className?: string;
@@ -18,6 +19,7 @@ export function Header({ className }: HeaderProps) {
         />
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <FavoritesDropdown />
           <UnitDropdown />
         </div>

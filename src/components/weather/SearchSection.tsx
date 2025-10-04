@@ -106,7 +106,7 @@ export function SearchSection() {
 
   return (
     <div className="mb-8 text-center">
-      <h1 className="mb-8 text-4xl font-bold text-neutral-0 md:text-5xl">
+      <h1 className="mb-8 text-4xl font-bold text-gray-900 dark:text-neutral-0 md:text-5xl">
         How's the sky looking today?
       </h1>
       
@@ -121,7 +121,7 @@ export function SearchSection() {
               onKeyDown={handleKeyDown}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-              className="h-12 bg-neutral-800 border-neutral-700 text-neutral-0 placeholder:text-neutral-300"
+              className="h-12 bg-white dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-0 placeholder:text-neutral-500 dark:placeholder:text-neutral-300"
               prefix={
                 <img
                   src="/assets/images/icon-search.svg"
@@ -132,8 +132,8 @@ export function SearchSection() {
             />
             
             {isLoading && showSuggestions && (
-              <div className="absolute left-0 right-0 top-full mt-1 rounded-lg bg-neutral-800 px-4 py-3 text-left">
-                <div className="flex items-center gap-2 text-neutral-300">
+              <div className="absolute left-0 right-0 top-full mt-1 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 px-4 py-3 text-left">
+                <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-300">
                   <img 
                     src="/assets/images/icon-loading.svg" 
                     alt="Loading" 
@@ -145,20 +145,20 @@ export function SearchSection() {
             )}
             
             {isFocused && !inputValue && recentLocations.length > 0 && (
-              <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-lg bg-neutral-800 shadow-lg">
-                <div className="px-4 py-2 text-xs font-medium text-neutral-300 border-b border-neutral-700">
+              <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-transparent shadow-lg">
+                <div className="px-4 py-2 text-xs font-medium text-neutral-600 dark:text-neutral-300 border-b border-neutral-200 dark:border-neutral-700">
                   Recent searches
                 </div>
                 {recentLocations.map((location) => (
                   <button
                     key={location.id}
                     className={cn(
-                      'w-full px-4 py-3 text-left text-neutral-0 transition-colors hover:bg-neutral-700'
+                      'w-full px-4 py-3 text-left text-neutral-900 dark:text-neutral-0 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-700'
                     )}
                     onClick={() => handleSelectLocation(location)}
                   >
                     <div className="font-medium">{location.name}</div>
-                    <div className="text-sm text-neutral-300">
+                    <div className="text-sm text-neutral-600 dark:text-neutral-300">
                       {[location.admin1, location.country].filter(Boolean).join(', ')}
                     </div>
                   </button>
@@ -167,18 +167,18 @@ export function SearchSection() {
             )}
 
             {showSuggestions && locations.length > 0 && !isLoading && (
-              <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-lg bg-neutral-800 shadow-lg">
+              <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-transparent shadow-lg">
                 {locations.map((location, index) => (
                   <button
                     key={location.id}
                     className={cn(
-                      'w-full px-4 py-3 text-left text-neutral-0 transition-colors hover:bg-neutral-700',
-                      index === selectedIndex && 'bg-neutral-700'
+                      'w-full px-4 py-3 text-left text-neutral-900 dark:text-neutral-0 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-700',
+                      index === selectedIndex && 'bg-neutral-100 dark:bg-neutral-700'
                     )}
                     onClick={() => handleSelectLocation(location)}
                   >
                     <div className="font-medium">{location.name}</div>
-                    <div className="text-sm text-neutral-300">
+                    <div className="text-sm text-neutral-600 dark:text-neutral-300">
                       {[location.admin1, location.country].filter(Boolean).join(', ')}
                     </div>
                   </button>

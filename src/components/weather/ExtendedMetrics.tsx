@@ -78,16 +78,16 @@ export function ExtendedMetrics({ weather, dailyForecast, selectedDay = 0, units
     <div className="mb-8">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between mb-4 px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 hover:bg-neutral-750 hover:border-neutral-600 transition-all"
+        className="w-full flex items-center justify-between mb-4 px-4 py-3 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-750 dark:hover:border-neutral-600 transition-all"
       >
         <div className="flex items-center gap-3">
-          <span className="text-base sm:text-lg font-semibold text-neutral-0">Extended Metrics</span>
-          <span className="text-xs text-neutral-400 bg-neutral-700 px-2 py-0.5 rounded-full">
+          <span className="text-base sm:text-lg font-semibold text-neutral-900 dark:text-neutral-0">Extended Metrics</span>
+          <span className="text-xs text-neutral-600 dark:text-neutral-400 bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 rounded-full">
             {availableMetrics}
           </span>
         </div>
         <svg
-          className={`h-5 w-5 text-neutral-300 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          className={`h-5 w-5 text-neutral-600 dark:text-neutral-300 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -100,19 +100,19 @@ export function ExtendedMetrics({ weather, dailyForecast, selectedDay = 0, units
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
         {/* UV Index */}
         {uvIndex !== undefined && uvData && (
-          <Card className="border-neutral-700 bg-neutral-800 p-4 sm:p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="mb-1 text-xs sm:text-sm text-neutral-300">
+                <p className="mb-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                   {useCurrentWeather ? "UV Index" : "Max UV Index"}
                 </p>
-                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-0">
+                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-0">
                   {Math.round(uvIndex)}
                 </p>
                 <p className={`text-xs sm:text-sm font-medium ${uvData.color}`}>
                   {uvData.level}
                 </p>
-                <p className="mt-1 text-xs text-neutral-400 hidden sm:block">
+                <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 hidden sm:block">
                   {uvData.description}
                 </p>
               </div>
@@ -125,17 +125,17 @@ export function ExtendedMetrics({ weather, dailyForecast, selectedDay = 0, units
 
         {/* Visibility */}
         {visibility !== undefined && (
-          <Card className="border-neutral-700 bg-neutral-800 p-4 sm:p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="mb-1 text-xs sm:text-sm text-neutral-300">Visibility</p>
-                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-0">
+                <p className="mb-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">Visibility</p>
+                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-0">
                   {units.precipitation === 'mm' ? visibilityKm : visibilityMiles}
                 </p>
-                <p className="text-xs sm:text-sm text-neutral-400">
+                <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
                   {units.precipitation === 'mm' ? 'km' : 'mi'}
                 </p>
-                <p className="mt-1 text-xs text-neutral-400 hidden sm:block">
+                <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 hidden sm:block">
                   {getVisibilityDescription(visibility)}
                 </p>
               </div>
@@ -149,19 +149,19 @@ export function ExtendedMetrics({ weather, dailyForecast, selectedDay = 0, units
 
         {/* Air Pressure */}
         {pressure !== undefined && (
-          <Card className="border-neutral-700 bg-neutral-800 p-4 sm:p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="mb-1 text-xs sm:text-sm text-neutral-300">
+                <p className="mb-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                   {useCurrentWeather ? "Pressure" : "Avg Pressure"}
                 </p>
-                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-0">
+                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-0">
                   {units.precipitation === 'mm' ? pressureHpa : pressureInHg}
                 </p>
-                <p className="text-xs sm:text-sm text-neutral-400">
+                <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
                   {units.precipitation === 'mm' ? 'hPa' : 'inHg'}
                 </p>
-                <p className="mt-1 text-xs text-neutral-400 hidden sm:block">
+                <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 hidden sm:block">
                   Sea level
                 </p>
               </div>
@@ -174,19 +174,19 @@ export function ExtendedMetrics({ weather, dailyForecast, selectedDay = 0, units
 
         {/* Wind Gusts */}
         {windGusts !== undefined && (
-          <Card className="border-neutral-700 bg-neutral-800 p-4 sm:p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="mb-1 text-xs sm:text-sm text-neutral-300">
+                <p className="mb-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                   {useCurrentWeather ? "Wind Gusts" : "Max Wind Gusts"}
                 </p>
-                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-0">
+                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-0">
                   {Math.round(windGusts)}
                 </p>
-                <p className="text-xs sm:text-sm text-neutral-400">
+                <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
                   {units.windSpeed === 'kmh' ? 'km/h' : units.windSpeed}
                 </p>
-                <p className="mt-1 text-xs text-neutral-400 hidden sm:block">
+                <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 hidden sm:block">
                   Maximum gusts
                 </p>
               </div>
@@ -199,17 +199,17 @@ export function ExtendedMetrics({ weather, dailyForecast, selectedDay = 0, units
 
         {/* Cloud Cover */}
         {cloudCover !== undefined && (
-          <Card className="border-neutral-700 bg-neutral-800 p-4 sm:p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="mb-1 text-xs sm:text-sm text-neutral-300">
+                <p className="mb-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                   {useCurrentWeather ? "Cloud Cover" : "Avg Cloud Cover"}
                 </p>
-                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-0">
+                <p className="mb-2 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-0">
                   {Math.round(cloudCover)}
                 </p>
-                <p className="text-xs sm:text-sm text-neutral-400">%</p>
-                <p className="mt-1 text-xs text-neutral-400 hidden sm:block">
+                <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">%</p>
+                <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 hidden sm:block">
                   {cloudCover <= 25 ? 'Clear' : cloudCover <= 50 ? 'Partly cloudy' : cloudCover <= 75 ? 'Mostly cloudy' : 'Overcast'}
                 </p>
               </div>
