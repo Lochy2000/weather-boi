@@ -1,5 +1,7 @@
 import React from 'react';
 import { Layout } from './components/layout/Layout';
+import { InstallPWA } from './components/layout/InstallPWA';
+import { InstallBanner } from './components/layout/InstallBanner';
 import { SearchSection } from './components/weather/SearchSection';
 import { WeatherDashboard } from './components/weather/WeatherDashboard';
 import { SunriseSunset } from './components/weather/SunriseSunset';
@@ -19,39 +21,44 @@ function App() {
   } = useWeatherData(currentLocation, units);
 
   return (
-    <Layout>
-      <SearchSection />
+    <>
+      <Layout>
+        <SearchSection />
 
-      {/* Sun & Daylight info - floating dropdown */}
-      {currentLocation && weather && !isLoading && !error && weather.daily && (
-        <div className="mb-6">
-          <SunriseSunset
-            dailyForecast={weather.daily}
-            selectedDay={selectedDay}
+        {/* Sun & Daylight info - floating dropdown */}
+        {currentLocation && weather && !isLoading && !error && weather.daily && (
+          <div className="mb-6">
+            <SunriseSunset
+              dailyForecast={weather.daily}
+              selectedDay={selectedDay}
+            />
+          </div>
+        )}
+
+        {isLoading && <LoadingState />}
+
+        {error && !isLoading && (
+          <ErrorState
+            message={error.message}
+            onRetry={() => refetch()}
           />
-        </div>
-      )}
+        )}
 
-      {isLoading && <LoadingState />}
+        {!currentLocation && !isLoading && !error && (
+          <EmptyState />
+        )}
 
-      {error && !isLoading && (
-        <ErrorState
-          message={error.message}
-          onRetry={() => refetch()}
-        />
-      )}
+        {currentLocation && weather && !isLoading && !error && (
+          <WeatherDashboard
+            weather={weather}
+            location={currentLocation}
+          />
+        )}
+      </Layout>
 
-      {!currentLocation && !isLoading && !error && (
-        <EmptyState />
-      )}
-
-      {currentLocation && weather && !isLoading && !error && (
-        <WeatherDashboard
-          weather={weather}
-          location={currentLocation}
-        />
-      )}
-    </Layout>
+      <InstallPWA />
+      <InstallBanner />
+    </>
   );
 }
 
