@@ -1,7 +1,8 @@
-# Weather Now
+<div align="center">
 
-<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/9de87993-6960-42f6-8b4c-3afca9684932" />
+# 🌤️ Weather Now
 
+<img width="200" height="200" alt="Weather Now Logo" src="https://github.com/user-attachments/assets/9de87993-6960-42f6-8b4c-3afca9684932" />
 
 [![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat&logo=react&logoColor=white)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -9,7 +10,11 @@
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.13-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![PWA](https://img.shields.io/badge/PWA-Enabled-5A0FC8?style=flat&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 
-A modern weather application that brings real-time forecasts right to your fingertips. Built as a Progressive Web App, it offers an intuitive interface for checking weather conditions anywhere in the world, with support for installation on both mobile and desktop devices.
+A modern weather application that brings real-time forecasts right to your fingertips.  
+Built as a Progressive Web App, it offers an intuitive interface for checking weather conditions anywhere in the world, with support for installation on both mobile and desktop devices.
+
+</div>
+
 
 ## Preview
 
