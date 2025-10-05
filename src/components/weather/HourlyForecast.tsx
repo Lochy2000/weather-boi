@@ -91,6 +91,9 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
               className="z-50 min-w-[140px] rounded-lg bg-white dark:bg-neutral-700 p-2 shadow-lg border border-neutral-200 dark:border-transparent"
               sideOffset={5}
               align="end"
+              side="bottom"
+              alignOffset={0}
+              avoidCollisions={false}
             >
               {dailyData.time.slice(0, 7).map((date, index) => {
                 const dayDate = parseISO(date);
