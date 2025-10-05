@@ -1,6 +1,7 @@
 # Weather Now
 
-<img src="./image.png" alt="Weather App Logo" width="200"/>
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/9de87993-6960-42f6-8b4c-3afca9684932" />
+
 
 [![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat&logo=react&logoColor=white)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -12,7 +13,8 @@ A modern weather application that brings real-time forecasts right to your finge
 
 ## Preview
 
-<img src="./preview.jpg" alt="Weather App Screenshot" width="600"/>
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/cb0f85fa-ce7d-4697-a4e1-1adaabcc2b28" />
+
 
 ## Table of Contents
 
