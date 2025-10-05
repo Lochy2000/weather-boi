@@ -1,234 +1,295 @@
-# Weather App - Open-Meteo Integration
+# Weather Now
 
-<img width="200" height="200" alt="Weather App Logo" src="https://github.com/user-attachments/assets/9cf35258-ab87-45de-bdbb-28d230cfcbaf" />
+<img src="./image.png" alt="Weather App Logo" width="200"/>
 
-## Overview
+[![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat&logo=react&logoColor=white)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.1.2-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.13-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![PWA](https://img.shields.io/badge/PWA-Enabled-5A0FC8?style=flat&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 
-A modern, responsive weather application built with React, TypeScript, and Vite. This app provides real-time weather information using the Open-Meteo API, featuring current conditions, 7-day forecasts, and hourly temperature data with a beautiful, intuitive interface.
+A modern weather application that brings real-time forecasts right to your fingertips. Built as a Progressive Web App, it offers an intuitive interface for checking weather conditions anywhere in the world, with support for installation on both mobile and desktop devices.
 
-## 🆕 What's New (Stage 2)
+## Preview
 
-- **One-Click Geolocation** - Instantly get weather for your current location
-- **Extended Weather Metrics** - UV index, visibility, air pressure, wind gusts, and cloud cover
-- **Smart Day Selection** - All metrics automatically update when you select different days
-- **Collapsible Design** - Extended metrics section toggles for a cleaner UI
-- **Enhanced API Integration** - Expanded daily forecast variables for richer data
+<img src="./preview.jpg" alt="Weather App Screenshot" width="600"/>
 
-## Features
+## Table of Contents
 
-### Core Functionality (Stage 1) ✅
-- **Location Search**: Smart search with autocomplete suggestions for cities worldwide
-- **Geolocation**: One-click "Use My Location" for instant local weather
-- **Current Weather**: Real-time temperature, weather conditions, and location details
-- **Weather Metrics**: Comprehensive data including:
-  - "Feels like" temperature
-  - Humidity percentage
-  - Wind speed and direction
-  - Precipitation amounts
-- **7-Day Forecast**: Daily high/low temperatures with weather icons
-- **Hourly Forecast**: 24-hour temperature timeline with day selector
-- **Dynamic Metrics**: All metrics update when selecting different days
-- **Unit Conversion**: Toggle between Imperial and Metric units
-  - Temperature: Celsius/Fahrenheit
-  - Wind Speed: km/h, mph
-  - Precipitation: mm, inches
-- **Recent Searches**: Quick access to previously searched locations
-- **Responsive Design**: Optimized for mobile, tablet, and desktop devices
+- [What This App Does](#what-this-app-does)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [How It Works](#how-it-works)
+- [Project Architecture](#project-architecture)
+- [PWA Features](#pwa-features)
+- [Browser Support](#browser-support)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
 
-### Enhanced Features (Stage 2) ✅
-- **Extended Metrics** (Collapsible):
-  - UV Index with color-coded levels and health recommendations
-  - Visibility in km/miles with quality descriptions
-  - Air pressure in hPa/inHg
-  - Wind gusts maximum speed
-  - Cloud cover percentage with descriptions
-- **Day-Aware Data**: Metrics automatically show forecast data for selected future days
-- **Browser Geolocation**: Automatic location detection with permission handling
+## What This App Does
+
+Weather Now is your personal weather companion. Search for any city worldwide, or use your current location to instantly see:
+
+- Current temperature and weather conditions
+- Detailed metrics like humidity, wind speed, UV index, and visibility
+- 7-day forecast with daily highs and lows
+- Hourly temperature trends throughout the day
+- Sunrise and sunset times
+
+The app remembers your recent searches and preferences, making it quick to check weather for your favorite locations. Plus, as a PWA, you can install it on your device for faster access and offline support.
+
+## Key Features
+
+### Smart Search & Location
+- **Autocomplete Search** - Start typing a city name and get instant suggestions from around the world
+- **Geolocation Support** - One tap to get weather for your current location using your device's GPS
+- **Recent Searches** - Quick access to your last 5 searched locations
+
+### Comprehensive Weather Data
+- **Current Conditions** - Live temperature, weather description, and location details
+- **Extended Metrics** - Feels-like temperature, humidity, precipitation, wind speed and direction
+- **Advanced Data** - UV index with safety levels, visibility distance, air pressure, wind gusts, and cloud coverage
+- **7-Day Forecast** - Daily weather outlook with high/low temps and conditions
+- **Hourly Timeline** - 24-hour temperature chart that updates based on selected day
+
+### User Experience
+- **Unit Toggle** - Switch between Celsius/Fahrenheit, km/h/mph, and mm/inches
+- **Responsive Design** - Optimized layouts for phones, tablets, and desktops
+- **Dark/Light Themes** - Automatic theme detection with manual override
+- **PWA Installation** - Install as an app on Android, iOS, and desktop browsers
+- **Offline Ready** - Service worker caching for basic offline functionality
 
 ## Tech Stack
 
-### Frontend Framework
-- **React 19** - UI library
-- **TypeScript** - Type safety and better developer experience
-- **Vite** - Build tool and development server
+Built with modern web technologies for performance and developer experience:
 
-### State Management & Data Fetching
-- **Zustand** - Lightweight state management with persistence
-- **React Query (TanStack Query)** - Server state management and caching
-- **Axios** - HTTP client for API requests
-
-### Styling & UI
-- **Tailwind CSS v4** - Utility-first CSS framework
-- **Radix UI** - Accessible component primitives
-- **Custom UI Components** - Built with shadcn/ui patterns
-
-### API Integration
-- **Open-Meteo API** - Free weather data API
-  - Weather forecasts
-  - Geocoding for location search
-  - No API key required
-
-### Development Tools
-- **ESLint** - Code linting
-- **TypeScript** - Static type checking
-- **PostCSS** - CSS processing
+| Category | Technologies |
+|----------|-------------|
+| **Frontend** | React 19, TypeScript, Vite |
+| **State Management** | Zustand (client state), TanStack Query (server state) |
+| **Styling** | Tailwind CSS v4, Radix UI primitives, shadcn/ui patterns |
+| **Data Fetching** | Axios, TanStack Query with intelligent caching |
+| **PWA** | Service Worker, Web App Manifest |
+| **Utilities** | date-fns, zod, lucide-react icons |
+| **API** | Open-Meteo (free, no API key required) |
+| **Routing** | React Router DOM v7 |
+| **Dev Tools** | ESLint, TypeScript, PostCSS |
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn package manager
+
+- Node.js v18 or higher
+- npm or yarn
 
 ### Installation
 
-1. Clone the repository:
-```bash
-git clone [repository-url]
-cd weather-app-main
-```
+1. **Clone the repository**
+   ```bash
+   git clone [repository-url]
+   cd weather-app-main
+   ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-3. Start the development server:
-```bash
-npm run dev
-```
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-4. Open your browser and navigate to:
-```
-http://localhost:5173
-```
+4. **Open your browser**
+
+   Navigate to `http://localhost:5173`
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run lint` - Run ESLint
-- `npm run preview` - Preview production build locally
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start Vite dev server with hot reload |
+| `npm run build` | Build optimized production bundle |
+| `npm run lint` | Run ESLint checks |
+| `npm run preview` | Preview production build locally |
 
-## Project Structure
+## How It Works
+
+Let me walk you through how the different pieces of this application work together.
+
+### The Big Picture
+
+When you first load the app, it presents you with a search bar. Type in a city name, and as you type, it queries the Open-Meteo Geocoding API to suggest matching locations. Select one (or click "Use My Location"), and the app fetches comprehensive weather data for that spot.
+
+The weather data gets cached for 5 minutes using React Query, so if you switch between locations and come back, you won't waste API calls or wait for loading. Your recent searches and unit preferences are stored in your browser's localStorage, so they persist between visits.
+
+### Component Architecture
+
+The app is organized into focused, reusable components:
+
+#### Layout Components
+- **Header** - Houses the app logo and unit conversion dropdown
+- **Layout** - Main wrapper that provides consistent spacing and structure
+- **InstallPWA** - Toast notification that appears after 10 seconds, offering PWA installation
+- **InstallBanner** - Fixed bottom banner with install button (dismissible)
+
+#### Weather Components
+- **WeatherDashboard** - The main container orchestrating all weather displays
+- **CurrentWeatherCard** - Shows the big temperature number, condition icon, and location
+- **WeatherMetrics** - Grid displaying feels-like temp, humidity, wind, and precipitation
+- **ExtendedMetrics** - Collapsible section with UV index, visibility, pressure, gusts, and clouds
+- **DailyForecast** - 7 cards showing daily forecasts with highs, lows, and icons
+- **HourlyForecast** - Interactive chart showing temperature progression over 24 hours
+- **SunriseSunset** - Displays sunrise and sunset times with visual indicators
+- **SearchSection** - The search input with autocomplete and geolocation button
+
+#### UI Primitives
+Reusable building blocks like `Button`, `Card`, `Input`, `Skeleton`, and `Toast` that maintain consistent styling across the app.
+
+### State Management Strategy
+
+The app uses two complementary state management approaches:
+
+#### Client State (Zustand)
+Handles everything that lives in your browser:
+- **User Preferences** - Selected units for temperature, wind, and precipitation
+- **Location Data** - Currently selected location and recent search history (max 5)
+- **UI State** - Which day is selected, loading transitions
+
+This state persists to localStorage, so your preferences survive page refreshes.
+
+#### Server State (React Query)
+Manages data fetched from APIs:
+- **Weather Data** - Current conditions, hourly, and daily forecasts
+- **Location Searches** - Geocoding results
+
+React Query provides automatic caching, background refetching, and optimistic updates. It's smart enough to know when data is stale and needs refreshing.
+
+### API Integration
+
+The app talks to two Open-Meteo endpoints:
+
+**Geocoding API** (`https://geocoding-api.open-meteo.com/v1/search`)
+- Takes a city name query
+- Returns matching locations with coordinates, country, and timezone info
+
+**Weather Forecast API** (`https://api.open-meteo.com/v1/forecast`)
+- Takes latitude/longitude coordinates
+- Returns current weather, hourly forecasts (48 hours), and daily forecasts (7 days)
+- Automatically handles unit conversions based on your preferences
+
+All API calls go through centralized service functions in `lib/api/services/`, which handle error transformation and provide consistent interfaces.
+
+### Data Flow
+
+Here's what happens when you search for a city:
+
+1. You type into the search input (debounced by 300ms to avoid hammering the API)
+2. Geocoding service fetches matching locations
+3. You select a location from the dropdown
+4. Location gets saved to Zustand store and added to recent searches
+5. React Query detects the location change and triggers a weather data fetch
+6. Weather service fetches forecast data, which gets cached by React Query
+7. All weather components react to the new data and update their displays
+8. If you select a different day in the forecast, all metrics update to show that day's data
+
+### Performance Optimizations
+
+**Caching**
+- Weather data cached for 5 minutes (reduces redundant API calls)
+- Recent locations persist in localStorage
+- Service worker caches app shell for offline access
+
+**Debouncing**
+- Search input debounced by 300ms to prevent excessive API requests while typing
+
+**Code Optimization**
+- Tree-shaking with ES modules eliminates unused code
+- Tailwind CSS purges unused styles in production
+- Vite's fast refresh keeps development smooth
+
+**Rendering**
+- Skeleton screens show immediately during loading (perceived performance)
+- Minimal re-renders through precise state updates
+- SVG icons for crisp display at any size
+
+## Project Architecture
 
 ```
-src/
-├── components/
-│   ├── layout/         # Layout components (Header, Layout, UnitDropdown)
-│   ├── states/         # State components (Loading, Error, Empty)
-│   ├── ui/             # Reusable UI components
-│   └── weather/        # Weather-specific components
-├── hooks/              # Custom React hooks
-├── lib/
-│   ├── api/            # API client and services
-│   ├── constants/      # App constants
-│   └── utils/          # Utility functions
-├── stores/             # Zustand store definitions
-├── types/              # TypeScript type definitions
-├── App.tsx             # Main app component
-└── main.tsx           # App entry point
+weather-app-main/
+├── public/
+│   ├── manifest.json        # PWA manifest
+│   └── sw.js               # Service worker for offline support
+├── src/
+│   ├── components/
+│   │   ├── layout/         # Header, Layout, Logo, Unit dropdown, PWA install
+│   │   ├── states/         # Loading, Error, Empty state components
+│   │   ├── ui/             # Button, Card, Input, Skeleton, Toast
+│   │   └── weather/        # All weather-specific components
+│   ├── hooks/              # Custom hooks (useDebounce, useGeolocation, etc.)
+│   ├── lib/
+│   │   ├── api/
+│   │   │   ├── services/   # geocoding.ts, weather.ts
+│   │   │   ├── client.ts   # Axios instance configuration
+│   │   │   └── config.ts   # API endpoints and cache settings
+│   │   ├── constants/      # App-wide constants
+│   │   └── utils/          # Helper functions
+│   ├── pages/              # Route page components
+│   ├── stores/             # Zustand stores (app, favorites, theme)
+│   ├── types/              # TypeScript interfaces and types
+│   ├── App.tsx             # Main app component with routing
+│   ├── main.tsx            # Entry point, React Query setup, SW registration
+│   └── index.css           # Tailwind directives and global styles
+├── index.html              # HTML entry point with PWA meta tags
+├── vite.config.ts          # Vite configuration
+└── tsconfig.json           # TypeScript configuration
 ```
 
-## Key Components
+## PWA Features
 
-### Weather Dashboard
-The main dashboard displays all weather information in a responsive grid layout:
-- Current weather card with live temperature
-- Weather metrics grid (feels like, humidity, wind, precipitation)
-- 7-day forecast cards
-- Hourly temperature timeline
+This app is a full Progressive Web App, which means:
 
-### Search System
-- Debounced search input for performance
-- Autocomplete suggestions from Open-Meteo geocoding API
-- Keyboard navigation support
-- Recent searches stored in localStorage
+### Installation
+- **Desktop (Chrome/Edge)** - Click the install icon in the address bar, or use the in-app install prompt
+- **Android** - Tap "Add to Home Screen" from the browser menu, or use the in-app banner/toast
+- **iOS Safari** - Tap Share → "Add to Home Screen" (manual installation)
 
-### State Management
-- **Zustand Store** manages:
-  - User preferences (units)
-  - Current location
-  - Recent locations
-  - UI state (selected day, transitions)
-- **React Query** handles:
-  - API data fetching
-  - Caching strategies
-  - Loading and error states
+### Install Prompts
+The app includes two ways to install:
+1. **Toast Notification** - Appears after 10 seconds in the bottom-right corner
+2. **Bottom Banner** - Fixed banner at the bottom of the page (can be dismissed)
 
-## API Integration
+Both prompts only appear when the app is installable and not already installed.
 
-### Open-Meteo Endpoints Used
-1. **Geocoding API** - Location search and autocomplete
-   - Endpoint: `https://geocoding-api.open-meteo.com/v1/search`
+### Offline Support
+The service worker caches the app shell and key resources, so basic functionality works even without internet. Weather data requires a connection, but the UI remains accessible.
 
-2. **Weather Forecast API** - Weather data
-   - Endpoint: `https://api.open-meteo.com/v1/forecast`
-   - Current weather variables
-   - Hourly forecast data
-   - Daily forecast data
-
-### Data Caching
-- React Query implements smart caching
-- Weather data cached for 5 minutes
-- Location searches cached for session
-
-## Responsive Design
-
-### Breakpoints
-- **Mobile**: 375px and up
-- **Tablet**: 768px and up
-- **Desktop**: 1440px and up
-
-### Mobile Optimizations
-- Touch-friendly interface
-- Collapsible sections
-- Optimized font sizes
-- Horizontal scrolling for forecast cards
-
-## Performance Optimizations
-
-- **Code Splitting**: Lazy loading of components
-- **Debounced Search**: Reduces API calls
-- **Data Caching**: Minimizes redundant requests
-- **Optimized Images**: Weather icons as inline SVGs
-- **CSS Optimization**: Tailwind CSS purging unused styles
+### Manifest Configuration
+- **Name**: Weather Now
+- **Display**: Standalone (no browser UI)
+- **Theme Color**: Blue (#3b82f6)
+- **Icons**: Multiple sizes for different devices
 
 ## Browser Support
 
-- Chrome (last 2 versions)
-- Firefox (last 2 versions)
-- Safari (last 2 versions)
-- Edge (last 2 versions)
+| Browser | Versions | PWA Install |
+|---------|----------|-------------|
+| Chrome | Last 2 versions | Yes (desktop & Android) |
+| Edge | Last 2 versions | Yes (desktop & Android) |
+| Firefox | Last 2 versions | No install prompt |
+| Safari | Last 2 versions | Manual (iOS) |
 
-## Known Issues
-
-- No test coverage yet implemented
-- Accessibility could be enhanced (ARIA labels, screen reader support)
-- TypeScript strict mode could be enhanced
-
-## Completed Enhancements (Stage 2)
-
-- ✅ Geolocation detection for automatic current location
-- ✅ Extended weather metrics (UV index, visibility, air pressure, wind gusts, cloud cover)
-- ✅ Dynamic day-aware metrics (metrics update per selected day)
-- ✅ Collapsible extended metrics section
-
-## Planned Future Enhancements
-
-- Sunrise/sunset times with visual indicators
-- Favorites/saved locations system
-- Compare weather between multiple locations
-- Dark/light mode themes
-- Progressive Web App (PWA) capabilities
-- Weather animations based on conditions
-- Voice search functionality
+PWA installation prompts work best on Chrome and Edge (Android and desktop). iOS users can manually add to home screen via Safari's share menu.
 
 ## Contributing
 
+Contributions are welcome! If you'd like to improve the app:
+
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/cool-feature`)
+3. Make your changes and commit (`git commit -m 'Add cool feature'`)
+4. Push to your branch (`git push origin feature/cool-feature`)
 5. Open a Pull Request
 
 ## License
@@ -237,10 +298,12 @@ This project is part of a Frontend Mentor challenge and is for educational purpo
 
 ## Acknowledgments
 
-- [Open-Meteo](https://open-meteo.com/) for the free weather API
-- [Frontend Mentor](https://www.frontendmentor.io/) for the design challenge
-- [shadcn/ui](https://ui.shadcn.com/) for UI component patterns
-- Weather icons and design assets from the challenge resources
+- **[Open-Meteo](https://open-meteo.com/)** - Free weather API with no authentication required
+- **[Frontend Mentor](https://www.frontendmentor.io/)** - Design challenge and assets
+- **[shadcn/ui](https://ui.shadcn.com/)** - Component patterns and design inspiration
+- **[Radix UI](https://www.radix-ui.com/)** - Accessible component primitives
+- **[Lucide](https://lucide.dev/)** - Beautiful icon library
 
-![alt text](image.png)
+---
 
+**Built with** React, TypeScript, and Vite | **Powered by** Open-Meteo API | **Installable** as a PWA
