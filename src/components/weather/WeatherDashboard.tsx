@@ -2,7 +2,6 @@ import React from 'react';
 import { CurrentWeatherCard } from './CurrentWeatherCard';
 import { WeatherMetrics } from './WeatherMetrics';
 import { ExtendedMetrics } from './ExtendedMetrics';
-import { SunriseSunset } from './SunriseSunset';
 import { DailyForecast } from './DailyForecast';
 import { HourlyForecast } from './HourlyForecast';
 import { SaveLocationButton } from '../favorites/SaveLocationButton';
@@ -50,16 +49,6 @@ export function WeatherDashboard({ weather, location }: WeatherDashboardProps) {
           selectedDay={selectedDay}
           units={units}
         />
-        <ExtendedMetrics
-          weather={weather.current}
-          dailyForecast={weather.daily}
-          selectedDay={selectedDay}
-          units={units}
-        />
-        <SunriseSunset
-          dailyForecast={weather.daily}
-          selectedDay={selectedDay}
-        />
         <DailyForecast
           forecast={weather.daily}
           selectedDay={selectedDay}
@@ -67,12 +56,19 @@ export function WeatherDashboard({ weather, location }: WeatherDashboardProps) {
         />
       </div>
 
-      <div className="lg:col-span-1">
+      <div className="lg:col-span-1 space-y-6 md:space-y-8">
         <HourlyForecast
           hourlyData={weather.hourly}
           dailyData={weather.daily}
           selectedDay={selectedDay}
           isLoading={isDayTransitioning}
+          onDaySelect={handleDaySelect}
+        />
+        <ExtendedMetrics
+          weather={weather.current}
+          dailyForecast={weather.daily}
+          selectedDay={selectedDay}
+          units={units}
         />
       </div>
     </div>

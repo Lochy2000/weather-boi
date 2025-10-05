@@ -13,9 +13,10 @@ interface HourlyForecastProps {
   dailyData: DailyForecast;
   selectedDay: number;
   isLoading?: boolean;
+  onDaySelect?: (day: number) => void;
 }
 
-export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading = false }: HourlyForecastProps) {
+export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading = false, onDaySelect }: HourlyForecastProps) {
   const { setSelectedDay } = useAppStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollIndicator, setScrollIndicator] = useState({ height: 0, top: 0, visible: false });
@@ -67,7 +68,7 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
 
       return () => container.removeEventListener('scroll', updateScrollIndicator);
     }
-  }, [dayHours]);
+  }, [selectedDay]); // Changed from dayHours to selectedDay to prevent infinite loop
 
   return (
     <Card className="p-4 sm:p-6 relative">
@@ -102,7 +103,7 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
                       "flex w-full items-center rounded-md px-3 py-2 text-sm text-neutral-900 dark:text-neutral-0 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-600 outline-none",
                       index === selectedDay && "bg-neutral-100 dark:bg-neutral-600"
                     )}
-                    onSelect={() => setSelectedDay(index)}
+                    onSelect={() => onDaySelect ? onDaySelect(index) : setSelectedDay(index)}
                   >
                     <span>{dayName}</span>
                   </DropdownMenu.Item>
