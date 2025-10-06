@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['assets/images/favicon-32x32.png', 'image.png', 'preview.jpg'],
+      includeAssets: ['assets/images/favicon-32x32.png', 'icon-192.png', 'icon-512.png'],
       manifest: {
         name: 'Weather Now - Real-Time Weather App',
         short_name: 'Weather Now',
@@ -22,21 +22,21 @@ export default defineConfig({
         orientation: 'portrait-primary',
         icons: [
           {
-            src: '/assets/images/favicon-32x32.png',
+            src: 'assets/images/favicon-32x32.png',
             sizes: '32x32',
             type: 'image/png'
           },
           {
-            src: '/image.png',
+            src: 'icon-192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
           },
           {
-            src: '/image.png',
+            src: 'icon-512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
           }
         ],
         categories: ['weather', 'utilities']
