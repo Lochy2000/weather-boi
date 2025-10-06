@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { format, parseISO, isToday } from 'date-fns';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { ChevronDown } from 'lucide-react';
 import { Card } from '../ui/card';
 import { WeatherIcon } from './weather-icon';
 import { HourlyForecast as HourlyForecastType, DailyForecast } from '../../types';
@@ -76,13 +77,9 @@ export function HourlyForecast({ hourlyData, dailyData, selectedDay, isLoading =
         <h3 className="text-base sm:text-lg font-semibold text-neutral-900 dark:text-neutral-0">Hourly forecast</h3>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
-            <button className="flex items-center gap-2 rounded-md px-3 py-1 text-sm text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:text-neutral-900 dark:hover:text-neutral-0">
+            <button className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-200 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:text-neutral-900 dark:hover:text-neutral-0 border border-neutral-300 dark:border-neutral-600">
               <span>{isToday(selectedDate) ? 'Today' : format(selectedDate, 'EEEE')}</span>
-              <img
-                src="/assets/images/icon-dropdown.svg"
-                alt="Select day"
-                className="h-3 w-3"
-              />
+              <ChevronDown size={16} className="text-neutral-600 dark:text-neutral-300" />
             </button>
           </DropdownMenu.Trigger>
 
