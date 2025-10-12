@@ -8,6 +8,8 @@ import { SunriseSunset } from './components/weather/SunriseSunset';
 import { LoadingState } from './components/states/LoadingState';
 import { ErrorState } from './components/states/ErrorState';
 import { EmptyState } from './components/states/EmptyState';
+import { ChatButton } from './components/chat/ChatButton';
+import { ChatModal } from './components/chat/ChatModal';
 import { useAppStore } from './stores/app.store';
 import { useWeatherData } from './hooks/useWeatherData';
 
@@ -58,6 +60,10 @@ function App() {
 
       <InstallPWA />
       <InstallBanner />
+
+      {/* AI Chat Assistant */}
+      <ChatButton />
+      <ChatModal weatherData={weather} />
     </>
   );
 }
