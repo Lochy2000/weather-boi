@@ -1,7 +1,5 @@
 import React from 'react';
 import { Layout } from './components/layout/Layout';
-import { InstallPWA } from './components/layout/InstallPWA';
-import { InstallBanner } from './components/layout/InstallBanner';
 import { SearchSection } from './components/weather/SearchSection';
 import { WeatherDashboard } from './components/weather/WeatherDashboard';
 import { SunriseSunset } from './components/weather/SunriseSunset';
@@ -57,9 +55,6 @@ function App() {
           />
         )}
       </Layout>
-
-      <InstallPWA />
-      <InstallBanner />
 
       {/* AI Chat Assistant */}
       <ChatButton />

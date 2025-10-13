@@ -36,7 +36,7 @@ Built as a Progressive Web App, it offers an intuitive interface for checking we
 
 ## What This App Does
 
-Weather Now is your personal weather companion. Search for any city worldwide, or use your current location to instantly see:
+This is my personal weather companion app. Users can search for any city worldwide, or use their current location to instantly see:
 
 - Current temperature and weather conditions
 - Detailed metrics like humidity, wind speed, UV index, and visibility
@@ -44,7 +44,7 @@ Weather Now is your personal weather companion. Search for any city worldwide, o
 - Hourly temperature trends throughout the day
 - Sunrise and sunset times
 
-The app remembers your recent searches and preferences, making it quick to check weather for your favorite locations. Plus, as a PWA, you can install it on your device for faster access and offline support.
+The app remembers recent searches and preferences, making it quick to check weather for favorite locations. Plus, as a PWA, it can be installed on devices for faster access and offline support.
 
 ## Key Features
 
@@ -123,13 +123,13 @@ Built with modern web technologies for performance and developer experience:
 
 ## How It Works
 
-Let me walk you through how the different pieces of this application work together.
+Here's how the different pieces of this application work together.
 
 ### The Big Picture
 
-When you first load the app, it presents you with a search bar. Type in a city name, and as you type, it queries the Open-Meteo Geocoding API to suggest matching locations. Select one (or click "Use My Location"), and the app fetches comprehensive weather data for that spot.
+When users first load the app, they see a search bar. As they type a city name, the app queries the Open-Meteo Geocoding API to suggest matching locations. After selecting one (or clicking "Use My Location"), the app fetches comprehensive weather data for that location.
 
-The weather data gets cached for 5 minutes using React Query, so if you switch between locations and come back, you won't waste API calls or wait for loading. Your recent searches and unit preferences are stored in your browser's localStorage, so they persist between visits.
+The weather data gets cached for 5 minutes using React Query, so switching between locations doesn't waste API calls or require reloading. Recent searches and unit preferences are stored in localStorage and persist between visits.
 
 ### Component Architecture
 
@@ -138,8 +138,7 @@ The app is organized into focused, reusable components:
 #### Layout Components
 - **Header** - Houses the app logo and unit conversion dropdown
 - **Layout** - Main wrapper that provides consistent spacing and structure
-- **InstallPWA** - Toast notification that appears after 10 seconds, offering PWA installation
-- **InstallBanner** - Fixed bottom banner with install button (dismissible)
+- **InstallBanner** - Subtle footer with install option (only shows when app is installable)
 
 #### Weather Components
 - **WeatherDashboard** - The main container orchestrating all weather displays
@@ -159,19 +158,19 @@ Reusable building blocks like `Button`, `Card`, `Input`, `Skeleton`, and `Toast`
 The app uses two complementary state management approaches:
 
 #### Client State (Zustand)
-Handles everything that lives in your browser:
+Handles everything that lives in the browser:
 - **User Preferences** - Selected units for temperature, wind, and precipitation
 - **Location Data** - Currently selected location and recent search history (max 5)
 - **UI State** - Which day is selected, loading transitions
 
-This state persists to localStorage, so your preferences survive page refreshes.
+This state persists to localStorage, so preferences survive page refreshes.
 
 #### Server State (React Query)
 Manages data fetched from APIs:
 - **Weather Data** - Current conditions, hourly, and daily forecasts
 - **Location Searches** - Geocoding results
 
-React Query provides automatic caching, background refetching, and optimistic updates. It's smart enough to know when data is stale and needs refreshing.
+React Query provides automatic caching, background refetching, and optimistic updates. It knows when data is stale and needs refreshing.
 
 ### API Integration
 
@@ -190,16 +189,16 @@ All API calls go through centralized service functions in `lib/api/services/`, w
 
 ### Data Flow
 
-Here's what happens when you search for a city:
+Here's what happens when searching for a city:
 
-1. You type into the search input (debounced by 300ms to avoid hammering the API)
+1. User types into the search input (debounced by 300ms to avoid hammering the API)
 2. Geocoding service fetches matching locations
-3. You select a location from the dropdown
+3. User selects a location from the dropdown
 4. Location gets saved to Zustand store and added to recent searches
 5. React Query detects the location change and triggers a weather data fetch
 6. Weather service fetches forecast data, which gets cached by React Query
 7. All weather components react to the new data and update their displays
-8. If you select a different day in the forecast, all metrics update to show that day's data
+8. When selecting a different day in the forecast, all metrics update to show that day's data
 
 ### Performance Optimizations
 
@@ -263,11 +262,7 @@ This app is a full Progressive Web App, which means:
 - **iOS Safari** - Tap Share → "Add to Home Screen" (manual installation)
 
 ### Install Prompts
-The app includes two ways to install:
-1. **Toast Notification** - Appears after 10 seconds in the bottom-right corner
-2. **Bottom Banner** - Fixed banner at the bottom of the page (can be dismissed)
-
-Both prompts only appear when the app is installable and not already installed.
+The app includes a subtle footer with an install option that only appears when the app is installable and not already installed.
 
 ### Offline Support
 The service worker caches the app shell and key resources, so basic functionality works even without internet. Weather data requires a connection, but the UI remains accessible.
